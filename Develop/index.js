@@ -41,6 +41,8 @@ function init() {
         {type:'input',message:'Enter usage information.', name:'usage'},
         {type:'input',message:'Enter contribution guidelines.', name:'contributionGuidelines'},
         {type:'input',message:'Enter test instructions.', name:'tests'},
+        {type:'input',message:'Enter your email address', name:'email'},
+        {type:'input',message:'Enter your github user name', name:'github'},
         {
             type: 'rawlist',
             name: 'license',

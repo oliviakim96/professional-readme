@@ -43,6 +43,8 @@ ${data.description}
 - [Tests](#tests)
 - [License](#license)
 - [Questions](#questions)
+- [Email](#email)
+- [github](#github)
 
 ## Installation
 
@@ -63,6 +65,14 @@ ${data.tests}
 ${renderLicenseSection(data.license)}
 
 ## Questions
+
+## Email
+
+${data.email}
+
+## Github 
+
+${data.github}
 
 `;
 
