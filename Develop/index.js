@@ -17,27 +17,53 @@ THEN I am taken to the corresponding section of the README*/
 
 // TODO: Create an array of questions for user input
 const questions = require('inquirer');
-questions.prompt([{type:'input',message:'what was your motivation?',name:'motivation'},
-{type:'input',message:'why did you build this project?',name:'why'},
-{type:'input',message:'what problem does it solve?',name:'solving problem'},
-{type:'input', message:'what did you learn?',name:'learn'}
-]).then((answers)=>{
-    console.log(answers);
-    FileSystem.writeFile ('README.md',generateMarkdown(answers)
-    .catch((error)=>{
-    if (error.isTtyError){
-        console.log('please input the data');
-
-    }else{
-        console.log('README.md file was generated')
-    }
-})
+const fs = require('fs');
+const generateMarkdown = require('./utils/generateMarkdown');
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+function writeToFile(fileName, data) {
+    fs.writeFile(fileName, data, (err) => {
+        if (err) throw err;
+        console.log(`Created README file at: ${fileName}`);
+    })
+}
 
 // TODO: Create a function to initialize app
-function init() {}
+function init() {
+    questions.prompt([
+        // {type:'input',message:'what was your motivation?',name:'motivation'},
+        // {type:'input',message:'why did you build this project?',name:'why'},
+        // {type:'input',message:'what problem does it solve?',name:'solving-problem'},
+        // {type:'input', message:'what did you learn?',name:'learn'}
+        {type:'input',message:'Enter a title.', name:'title'},
+        {type:'input',message:'Enter a description.', name:'description'},
+        {type:'input',message:'Enter installation instructions.', name:'installation'},
+        {type:'input',message:'Enter usage information.', name:'usage'},
+        {type:'input',message:'Enter contribution guidelines.', name:'contributionGuidelines'},
+        {type:'input',message:'Enter test instructions.', name:'tests'},
+        {
+            type: 'rawlist',
+            name: 'license',
+            message: 'Which license is your project under?',
+            choices: [
+              'MIT License',
+              'GNU GPLv3',
+              'ISC License',
+              'Unlicensed',
+            ],
+        },
+    ]).then((answers)=>{
+        console.log(answers);
+        writeToFile('README.md', generateMarkdown(answers))
+    }).catch((error)=>{
+        if (error.isTtyError){
+            console.log('please input the data');
+
+        }else{
+            console.log(`Error: ${error}`);
+        }
+    })
+}
 
 // Function call to initialize app
 init();
